@@ -100,7 +100,8 @@ class jsonSchema extends React.Component {
       data = `{
         "type": "object",
         "title": "title",
-        "properties":{}
+        "properties":{},
+        "additionalProperties": false
       }`;
     }
     this.Model.changeEditorSchemaAction({ value: JSON.parse(data) });

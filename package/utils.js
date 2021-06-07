@@ -4,11 +4,28 @@ exports.lang = 'en_US';
 exports.format = [
   { name: 'date-time' },
   { name: 'date' },
+  { name: 'time' },
+
   { name: 'email' },
+  { name: 'idn-email' },
+
   { name: 'hostname' },
+  { name: 'idn-hostname' },
+
   { name: 'ipv4' },
   { name: 'ipv6' },
-  { name: 'uri' }
+
+  { name: 'uri' },
+  { name: 'uri-reference' },
+  { name: 'uri-template' },
+
+  { name: 'iri' },
+  { name: 'iri-reference' },
+
+  { name: 'json-pointer' },
+  { name: 'relative-json-pointer' },
+
+  { name: 'regex' }
 ];
 const _ = require('underscore');
 exports.SCHEMA_TYPE = ['string', 'number', 'array', 'object', 'boolean', 'integer'];
@@ -27,7 +44,8 @@ exports.defaultSchema = {
   },
   object: {
     type: 'object',
-    properties: {}
+    properties: {},
+    additionalProperties: false
   },
   boolean: {
     type: 'boolean'

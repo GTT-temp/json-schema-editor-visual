@@ -521,13 +521,45 @@ SchemaArray.contextTypes = {
   changeCustomValue: PropTypes.func
 };
 
+const SchemaObject = (props, context) => {
+  const { data } = props;
+  return (
+    <div>
+      <div className="default-setting">{LocalProvider('base_setting')}</div>
+      <Row className="other-row" type="flex" align="middle">
+        <Col span={6} className="other-label">
+          <span>
+            additionalProperties&nbsp;
+            <Tooltip title={LocalProvider('additional_properties')}>
+              <Icon type="question-circle-o" style={{ width: '10px' }} />
+            </Tooltip>
+            &nbsp; :
+          </span>
+        </Col>
+        <Col span={18}>
+          <Switch
+            checked={data.additionalProperties}
+            placeholder="additionalProperties"
+            onChange={e => changeOtherValue(e, 'additionalProperties', data, context.changeCustomValue)}
+          />
+        </Col>
+      </Row>
+    </div>
+  );
+};
+
+SchemaObject.contextTypes = {
+  changeCustomValue: PropTypes.func
+};
+
 const mapping = data => {
   return {
     string: <SchemaString data={data} />,
     number: <SchemaNumber data={data} />,
     boolean: <SchemaBoolean data={data} />,
     integer: <SchemaNumber data={data} />,
-    array: <SchemaArray data={data} />
+    array: <SchemaArray data={data} />,
+    object: <SchemaObject data={data} />
   }[data.type];
 };
 
