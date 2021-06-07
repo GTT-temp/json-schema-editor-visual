@@ -1,9 +1,12 @@
 {
-  "name": "json-schema-editor-visual",
+  "name": "@inceptiongt/json-schema-editor-visual-new",
   "version": "1.1.1",
-  "description": "jsonschema editor",
+  "description": "jsonschema-draft07 editor",
   "main": "package/index.js",
   "license": "MIC",
+  "homepage": "https://github.com/GTT-temp/json-schema-editor-visual",
+  "repository": "https://github.com/GTT-temp/json-schema-editor-visual",
+  "keywords": ["json-schema-editor","json-schema", "draft-07"],
   "scripts": {
     "start": "ykit s -p 8082",
     "demo": "NODE_ENV=production ykit pack -m",

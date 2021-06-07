@@ -1,6 +1,8 @@
 # json-schema-editor-visual
 A json-schema editor of high efficient and easy-to-use, base on React.
 
+json-schema-draft07
+
 ![avatar](json-schema-editor-visual.jpg)
 
 ## Usage
