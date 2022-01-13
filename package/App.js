@@ -101,7 +101,8 @@ class jsonSchema extends React.Component {
         "type": "object",
         "title": "title",
         "properties":{},
-        "additionalProperties": false
+        "additionalProperties": false,
+        "default": {}
       }`;
     }
     this.Model.changeEditorSchemaAction({ value: JSON.parse(data) });
@@ -427,7 +428,9 @@ class jsonSchema extends React.Component {
                   />
                 </Col>
               )}
-              <Col span={this.props.isMock ? 4 : 5} className="col-item col-item-mock">
+              
+              {/* title列 */}
+              {/* <Col span={this.props.isMock ? 4 : 5} className="col-item col-item-mock">
                 <Input
                   addonAfter={
                     <Icon
@@ -441,7 +444,25 @@ class jsonSchema extends React.Component {
                   value={this.props.schema.title}
                   onChange={e => this.changeValue(['title'], e.target.value)}
                 />
+              </Col> */}
+
+              <Col span={this.props.isMock ? 4 : 5} className="col-item col-item-mock">
+                <Input
+                  // addonAfter={
+                  //   <Icon
+                  //     type="edit"
+                  //     onClick={() =>
+                  //       this.showEdit([], 'default', this.props.schema.default)
+                  //     }
+                  //   />
+                  // }
+                  placeholder={'default'}
+                  value={JSON.stringify(this.props.schema.default)}
+                  // onChange={e => this.changeValue(['default'], e.target.value)}
+                  disabled
+                />
               </Col>
+
               <Col span={this.props.isMock ? 4 : 5} className="col-item col-item-desc">
                 <Input
                   addonAfter={

@@ -40,12 +40,14 @@ exports.defaultSchema = {
     type: 'array',
     items: {
       type: 'string'
-    }
+    },
+    default: []
   },
   object: {
     type: 'object',
     properties: {},
-    additionalProperties: false
+    additionalProperties: false,
+    default: {}
   },
   boolean: {
     type: 'boolean'

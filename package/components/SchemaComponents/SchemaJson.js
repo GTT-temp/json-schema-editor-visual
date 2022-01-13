@@ -12,7 +12,8 @@ import {
   Input,
   Modal,
   message,
-  Tooltip
+  Tooltip,
+  InputNumber
 } from 'antd';
 import FieldInput from './FieldInput'
 
@@ -92,6 +93,24 @@ class SchemaArray extends PureComponent {
     this.Model.changeValueAction({ key, value });
   }
 
+  handleChangeDefault = (e, type) =>{
+    
+    let prefix = this.getPrefix();
+    let key = [].concat(prefix, `default`);
+    let value;
+    switch(type){
+      case 'boolean': 
+        value = e === 'true' ? true : false
+        break;
+      case 'number':
+        value = e;
+        break;
+      default: 
+      value = e.target.value;
+    }
+    this.Model.changeValueAction({ key, value });
+  }
+
   // 增加子节点
   handleAddChildField = () => {
     let prefix = this.getPrefix();
@@ -115,6 +134,82 @@ class SchemaArray extends PureComponent {
   handleShowAdv = () => {
     this.props.showAdv(this.getPrefix(), this.props.data.items);
   };
+
+  renderDefault = (items) => {
+    let rst
+    
+    switch(items.type) {
+      case 'object':
+      case 'array': rst = (
+          <Col span={this.context.isMock ? 4 : 5} className="col-item col-item-mock">
+            <Input
+              // addonAfter={<Icon type="edit" onClick={() => this.handleShowEdit('default')} />}
+              placeholder={LocaleProvider('default')}
+              value={JSON.stringify(items.default)}
+              // onChange={this.handleChangeDefault}
+              disabled
+            />
+          </Col>
+        );
+        break;
+      case 'integer':
+      case 'number': rst = (
+        <Col span={this.context.isMock ? 4 : 5} className="col-item col-item-mock">
+          <InputNumber
+            // addonAfter={<Icon type="edit" onClick={() => this.handleShowEdit('default')} />}
+            placeholder={LocaleProvider('default')}
+            value={items.default}
+            onChange={e => this.handleChangeDefault(e, 'number')}
+            style={{width: '100%'}}
+          />
+        </Col>
+      );
+      break;
+      case 'boolean': 
+      let data = items
+      let value = _.isUndefined(data.default) ? '' : data.default ? 'true' : 'false';
+      rst = (
+        <Col span={this.context.isMock ? 4 : 5} className="col-item col-item-mock">
+          {/* <InputNumber
+            // addonAfter={<Icon type="edit" onClick={() => this.handleShowEdit('default')} />}
+            placeholder={LocaleProvider('default')}
+            value={items.default}
+            onChange={this.handleChangeDefault}
+          /> */}
+          <Select
+            value={value}
+            placeholder={LocaleProvider('default')}
+            // onChange={e =>
+            //   changeOtherValue(
+            //     e === 'true' ? true : false,
+            //     'default',
+            //     data,
+            //     context.changeCustomValue
+            //   )
+            // }
+            onChange={e => this.handleChangeDefault(e, 'boolean')}
+            // style={{ width: 200 }}
+            style={{width: '100%'}}
+          >
+            <Option value={true}>true</Option>
+            <Option value={false}>false</Option>
+          </Select>
+        </Col>
+      );
+      break;
+      default: rst = (
+        <Col span={this.context.isMock ? 4 : 5} className="col-item col-item-mock">
+          <Input
+            // addonAfter={<Icon type="edit" onClick={() => this.handleShowEdit('default')} />}
+            placeholder={LocaleProvider('default')}
+            value={items.default}
+            onChange={this.handleChangeDefault}
+          />
+        </Col>
+      );
+    }
+    return rst
+  }
 
   render() {
     const { data, prefix, showEdit, showAdv } = this.props;
@@ -175,14 +270,19 @@ class SchemaArray extends PureComponent {
                 />
               </Col>
             )}
-            <Col span={this.context.isMock ? 4 : 5} className="col-item col-item-mock">
+            {/* title列 */}
+            {/* <Col span={this.context.isMock ? 4 : 5} className="col-item col-item-mock">
               <Input
                 addonAfter={<Icon type="edit" onClick={() => this.handleShowEdit('title')} />}
                 placeholder={LocaleProvider('title')}
                 value={items.title}
                 onChange={this.handleChangeTitle}
               />
-            </Col>
+            </Col> */}
+            {/* default列 */}
+            
+            {this.renderDefault(items)}
+            
             <Col span={this.context.isMock ? 4 : 5} className="col-item col-item-desc">
               <Input
                 addonAfter={<Icon type="edit" onClick={() => this.handleShowEdit('description')} />}
@@ -275,6 +375,24 @@ class SchemaItem extends PureComponent {
     this.Model.changeValueAction({ key, value });
   }
 
+  handleChangeDefault = (e, type) =>{
+    debugger
+    let prefix = this.getPrefix();
+    let key = [].concat(prefix, `default`);
+    let value;
+    switch(type){
+      case 'boolean': 
+        value = e === 'true' ? true : false
+        break;
+      case 'number':
+        value = e;
+        break;
+      default: 
+      value = e.target.value;
+    }
+    this.Model.changeValueAction({ key, value });
+  }
+
   // 修改数据类型
   handleChangeType = e => {
     let prefix = this.getPrefix();
@@ -327,6 +445,82 @@ class SchemaItem extends PureComponent {
     // this.enableRequire(this.props.prefix, this.props.name, e.target.checked);
     this.Model.enableRequireAction({ prefix, name, required });
   };
+
+  renderDefault = (items) => {
+    let rst
+    
+    switch(items.type) {
+      case 'object':
+      case 'array': rst = (
+          <Col span={this.context.isMock ? 4 : 5} className="col-item col-item-mock">
+            <Input
+              // addonAfter={<Icon type="edit" onClick={() => this.handleShowEdit('default')} />}
+              placeholder={LocaleProvider('default')}
+              value={JSON.stringify(items.default)}
+              // onChange={this.handleChangeDefault}
+              disabled
+            />
+          </Col>
+        );
+        break;
+      case 'integer':
+      case 'number': rst = (
+        <Col span={this.context.isMock ? 4 : 5} className="col-item col-item-mock">
+          <InputNumber
+            // addonAfter={<Icon type="edit" onClick={() => this.handleShowEdit('default')} />}
+            placeholder={LocaleProvider('default')}
+            value={items.default}
+            onChange={e => this.handleChangeDefault(e, 'number')}
+            style={{width: '100%'}}
+          />
+        </Col>
+      );
+      break;
+      case 'boolean': 
+      let data = items
+      let value = _.isUndefined(data.default) ? '' : data.default ? 'true' : 'false';
+      rst = (
+        <Col span={this.context.isMock ? 4 : 5} className="col-item col-item-mock">
+          {/* <InputNumber
+            // addonAfter={<Icon type="edit" onClick={() => this.handleShowEdit('default')} />}
+            placeholder={LocaleProvider('default')}
+            value={items.default}
+            onChange={this.handleChangeDefault}
+          /> */}
+          <Select
+            value={value}
+            placeholder={LocaleProvider('default')}
+            // onChange={e =>
+            //   changeOtherValue(
+            //     e === 'true' ? true : false,
+            //     'default',
+            //     data,
+            //     context.changeCustomValue
+            //   )
+            // }
+            onChange={e => this.handleChangeDefault(e, 'boolean')}
+            // style={{ width: 200 }}
+            style={{width: '100%'}}
+          >
+            <Option value="true">true</Option>
+            <Option value="false">false</Option>
+          </Select>
+        </Col>
+      );
+      break;
+      default: rst = (
+        <Col span={this.context.isMock ? 4 : 5} className="col-item col-item-mock">
+          <Input
+            // addonAfter={<Icon type="edit" onClick={() => this.handleShowEdit('default')} />}
+            placeholder={LocaleProvider('default')}
+            value={items.default}
+            onChange={this.handleChangeDefault}
+          />
+        </Col>
+      );
+    }
+    return rst
+  }
 
   render() {
     let { name, data, prefix, showEdit, showAdv } = this.props;
@@ -413,14 +607,16 @@ class SchemaItem extends PureComponent {
             </Col>
           )}
 
-          <Col span={this.context.isMock ? 4 : 5} className="col-item col-item-mock">
+          {/* <Col span={this.context.isMock ? 4 : 5} className="col-item col-item-mock">
             <Input
               addonAfter={<Icon type="edit" onClick={() => this.handleShowEdit('title')} />}
               placeholder={LocaleProvider('title')}
               value={value.title}
               onChange={this.handleChangeTitle}
             />
-          </Col>
+          </Col> */}
+
+          {this.renderDefault(value)}
 
           <Col span={this.context.isMock ? 4 : 5} className="col-item col-item-desc">
             <Input

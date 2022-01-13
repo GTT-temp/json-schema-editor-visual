@@ -64,7 +64,7 @@ export default {
 
   changeValueAction: function(state, action) {
     const keys = action.key;
-    if (action.value) {
+    if (!_.isUndefined(action.value)) {
       utils.setData(state.data, keys, action.value);
     } else {
       utils.deleteData(state.data, keys);
