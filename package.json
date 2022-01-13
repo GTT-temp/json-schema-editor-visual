@@ -1,6 +1,6 @@
 {
   "name": "@inceptiongt/json-schema-editor-visual-new",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "jsonschema-draft07 editor",
   "main": "package/index.js",
   "license": "MIC",
